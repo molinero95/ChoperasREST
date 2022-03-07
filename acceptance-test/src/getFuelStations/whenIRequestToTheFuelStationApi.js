@@ -1,7 +1,7 @@
-import { getChoperas } from '../choperasClient';
+const { getChoperas } = require('../choperasClient');
 const { When } = require('@cucumber/cucumber')
-const request = require('request')
+const CucumberContext = require("../cucumberContext")
 
 When('I request to the fuel station api for fuel stations', function () {
-    CucumberContex.add("response", getChoperas());
+    CucumberContext.add("response", getChoperas());
 });

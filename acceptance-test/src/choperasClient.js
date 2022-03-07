@@ -1,8 +1,23 @@
+const request = require('request');
 
-export function getHealth(){
-    return request.get("http://127.0.0.1/system/health");
+function getHealth(){
+    return new Promise((resolve, reject) => {
+        request.get("http://127.0.0.1:8888/system/health", (error, response) => {
+            error ? reject(error) : resolve(response);
+        })
+    })
 }
 
-export function getChoperas(){
-    return request.get("http://127.0.0.1/api/choperas");
+function getChoperas(){
+    return new Promise((resolve, reject) => {
+        request.get("http://127.0.0.1:8888/api/choperas", (error, response) => {
+            error ? reject(error) : resolve(response);
+        })
+    })
+}
+
+
+module.exports = {
+    getChoperas,
+    getHealth
 }

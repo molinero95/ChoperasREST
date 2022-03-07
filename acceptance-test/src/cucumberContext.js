@@ -1,4 +1,4 @@
-class CucumberContex{
+module.exports = class CucumberContext{
 
     static get(key){
         return this._context[key];

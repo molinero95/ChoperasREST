@@ -3,7 +3,7 @@ services:
   choperas-service:
     image: choperas-rest:latest
     ports:
-      - "80"
+      - "8888:8888"
     volumes:
       - /opt/app
     command: npm run start

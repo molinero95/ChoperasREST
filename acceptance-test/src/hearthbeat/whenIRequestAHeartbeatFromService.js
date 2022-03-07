@@ -1,7 +1,7 @@
-import { getHealth } from '../choperasClient';
+const { getHealth } = require('../choperasClient');
 const { When } = require('@cucumber/cucumber')
-const request = require('request')
- 
+const CucumberContext = require("../cucumberContext")
+
 When('I request a heartbeat from the service', function() {
-    CucumberContex.add("response", getHealth());
+    CucumberContext.add("response", getHealth());
 });
