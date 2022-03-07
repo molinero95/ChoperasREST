@@ -3,6 +3,6 @@ Feature: Get fuel station
     Scenario: Get a fuel station
         When I request to the fuel station api for fuel stations
         Then I will recieve the following fuel station data:
-            | name  | chopera    |
-            | fecha | 10/10/2022 |
+            | id     | 1            |
+            | rotulo | chopera_test |
 
