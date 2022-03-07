@@ -42,7 +42,10 @@ echo " [OK] - El endpoint respode como se espera"
 echo ""
 
 pushd  "$CURRENT_DIR/../acceptance-test"
+    npm install --quiet
     npm run test
+
+    rm -r node_modules
 popd
 source "$CURRENT_DIR/stop-acceptance-test-environment.sh"
 
