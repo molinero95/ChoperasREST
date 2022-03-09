@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha test/**/*Test.js --exit",
+    "test": "mocha test/* --exit",
     "lint": "eslint .  --ext .js",
     "lint-fix": "eslint .  --ext .js --fix"
   },

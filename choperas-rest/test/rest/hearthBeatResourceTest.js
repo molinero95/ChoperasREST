@@ -1,9 +1,7 @@
-import chai, { expect } from "chai";
+import { expect } from "chai";
 import sinon from "sinon";
-import chaiHttp from "chai-http";
 import HearthBeatResource from "../../src/rest/hearthBeatResource.js";
 
-chai.use(chaiHttp);
 
 describe("Application startup", () => {
 

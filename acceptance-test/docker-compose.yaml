@@ -6,6 +6,7 @@ services:
       - "8888:8888"
     volumes:
       - /opt/app
+      - ./choperas-rest-config/config.json:/opt/app/config/config.json
     command: npm run start
 
   db:

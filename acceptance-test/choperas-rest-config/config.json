@@ -1,0 +1,6 @@
+{
+    "user":"root",
+    "password":"testpassword",
+    "maxConnections": 2,
+    "host": "localhost"
+}

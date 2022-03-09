@@ -1,10 +1,7 @@
-import chai, { expect } from "chai";
-import chaiHttp from "chai-http";
+import { expect } from "chai";
 import sinon from "sinon";
 import ChoperasRepository from "../../src/domain/choperasRepository.js";
 import ChoperasResource from "../../src/rest/choperasResource.js";
-
-chai.use(chaiHttp);
 
 
 describe("/api/choperas", () => {

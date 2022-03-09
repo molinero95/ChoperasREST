@@ -3,7 +3,10 @@ import bodyParser from "body-parser";
 import ChoperasResource from "./rest/choperasResource.js";
 import HearthBeatResource from "./rest/hearthBeatResource.js";
 import ChoperasRepository from "./domain/choperasRepository.js";
+import { loadConfigurationFromFile } from "./loadConfiguration.js";
 
+
+loadConfigurationFromFile();
 const server = express();
 const PORT = 8888;
 
