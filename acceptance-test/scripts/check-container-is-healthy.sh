@@ -1,10 +1,10 @@
 #!/bin/bash
 
-function is_container_healty() {
+function is_container_healthy() {
     local CONTAINER_NAME=$1
 
     echo ""
-    echo "Checking if $CONTAINER_NAME is healty"
+    echo "Checking if $CONTAINER_NAME is healthy"
 
     counter_retries=0
     max_retries=25

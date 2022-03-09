@@ -2,7 +2,7 @@ import { expect } from "chai";
 import sinon from "sinon";
 import FuelStationsRepository from "../../src/domain/fuelStationsRepository.js";
 import FuelStationsResource from "../../src/rest/fuelStationsResource.js";
-
+import FuelStationAssembler from "../../src/rest/fuelStationAssembler.js";
 
 describe("/api/fuel-stations", () => {
 
@@ -35,16 +35,19 @@ describe("/api/fuel-stations", () => {
     describe("get fuel stations with data present", () => {
 
         it("It should return http status 200 OK", async () => {
-            const fuelStation = {"name": "test"};
-            sinon.stub(fuelStationsRepository, "getFuelStations").returns(Promise.resolve([fuelStation]));
+            const repositoryData = {"id": 1, "rotulo": "test"};
+            sinon.stub(fuelStationsRepository, "getFuelStations").returns(Promise.resolve([repositoryData]));
             await fuelStationsResource.getFuelStations(request, response);
 
             expect(statusValue).to.be.equal(200);
         });
 
         it("It should return the expected value", async () => {
-            const fuelStation = {"name": "test"};
-            sinon.stub(fuelStationsRepository, "getFuelStations").returns(Promise.resolve([fuelStation]));
+            const repositoryData = {"id": 1, "rotulo": "test", "more_arguments": ""};
+            const fuelStation = {"id": 1, "name": "test"};
+            const fuelStationAssembler = new FuelStationAssembler();
+            sinon.stub(fuelStationsRepository, "getFuelStations").returns(Promise.resolve([repositoryData]));
+            sinon.stub(fuelStationAssembler, "convertToFuelStation").returns(fuelStation);
             await fuelStationsResource.getFuelStations(request, response);
 
             expect(jsonValue).to.be.deep.equal({ "data": [fuelStation] });
