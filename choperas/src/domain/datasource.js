@@ -1,4 +1,4 @@
-import mysql from "mysql"
+import mysql from "mysql";
 
 export default class Datasource {
     constructor(host, user, password, maxConnections) {
@@ -14,10 +14,10 @@ export default class Datasource {
             host: this.host,
             user: this.user,
             password: this.password
-        })
+        });
     }
 
     getConnection(callback) {
-        this.connectionPool.getConnection(callback)
+        this.connectionPool.getConnection(callback);
     }
 }

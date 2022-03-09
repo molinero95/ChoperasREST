@@ -1,6 +1,6 @@
-import Datasource from "../../src/domain/datasource.js"
+import Datasource from "../../src/domain/datasource.js";
 import sinon from "sinon";
-import mysql from "mysql"
+import mysql from "mysql";
 import { expect } from "chai";
 
 describe("Datasource configuration", () => {
@@ -12,7 +12,7 @@ describe("Datasource configuration", () => {
 
 
     it("It should connect with the expected parameters", () => {
-        const mock = sinon.mock(mysql)
+        const mock = sinon.mock(mysql);
 
         mock.expects("createPool")
             .once()
@@ -21,21 +21,21 @@ describe("Datasource configuration", () => {
                 connectionLimit: connections,
                 user: user,
                 password: password
-            })
+            });
 
-        datasource.initializePool()
-        mock.verify()
-    })
+        datasource.initializePool();
+        mock.verify();
+    });
 
     it("It should get the connection from pool", () => {
-        const poolFake = {getConnection: () => {}}
-        const getConnectionStub = sinon.stub(poolFake, "getConnection")
+        const poolFake = { getConnection: () => { } };
+        const getConnectionStub = sinon.stub(poolFake, "getConnection");
 
         sinon.stub(mysql, "createPool").returns(poolFake);
         datasource.initializePool();
 
-        datasource.getConnection((_err, _conn) => {});   
-        expect(getConnectionStub.calledOnce).to.be.true
+        datasource.getConnection(() => {});
+        expect(getConnectionStub.calledOnce).to.be.true;
 
-    })
-})
+    });
+});

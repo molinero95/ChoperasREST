@@ -1,5 +1,5 @@
-export default class ChoperasRepository{
-    constructor(){}
+export default class ChoperasRepository {
+    constructor() { }
 
     getChoperas() {
         return [];
