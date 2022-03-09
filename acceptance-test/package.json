@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "@types/chai": "^4.3.0",
-    "@types/cucumber": "^7.0.0",
     "@types/request": "^2.48.8"
   }
 }
