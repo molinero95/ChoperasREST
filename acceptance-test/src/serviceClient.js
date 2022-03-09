@@ -8,9 +8,9 @@ function getHealth(){
     })
 }
 
-function getChoperas(){
+function getFuelStations(){
     return new Promise((resolve, reject) => {
-        request.get("http://127.0.0.1:8888/api/choperas", (error, response) => {
+        request.get("http://127.0.0.1:8888/api/fuel-stations", (error, response) => {
             error ? reject(error) : resolve(response);
         })
     })
@@ -18,6 +18,6 @@ function getChoperas(){
 
 
 module.exports = {
-    getChoperas,
+    getFuelStations,
     getHealth
 }

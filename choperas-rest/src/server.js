@@ -1,31 +1,38 @@
 import express from "express";
 import bodyParser from "body-parser";
-import ChoperasResource from "./rest/choperasResource.js";
+import FuelStationsResource from "./rest/fuelStationsResource.js";
 import HearthBeatResource from "./rest/hearthBeatResource.js";
-import ChoperasRepository from "./domain/choperasRepository.js";
+import FuelStationsRepository from "./domain/fuelStationsRepository.js";
 import { loadConfigurationFromFile } from "./loadConfiguration.js";
+import Datasource from "./domain/datasource.js";
+import Configuration from "./configuration.js";
 
 
 loadConfigurationFromFile();
+const configuration = Configuration.getConfiguration();
+const dataSource = new Datasource(
+    configuration.db.host,
+    configuration.db.user,
+    configuration.db.password,
+    configuration.db.maxConnections
+);
+const fuelStationsRepository = new FuelStationsRepository(dataSource);
+const fuelStationResource = new FuelStationsResource(fuelStationsRepository);
+const hearthBeatResource = new HearthBeatResource();
+
 const server = express();
 const PORT = 8888;
 
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
+const fuelStationsRouter = express.Router();
+fuelStationsRouter.get("/", fuelStationResource.getFuelStations);
+server.use("/api/fuel-stations", fuelStationsRouter);
 
-const choperasRepository = new ChoperasRepository();
-const choperasResource = new ChoperasResource(choperasRepository);
-
-const choperasRouter = express.Router();
-choperasRouter.get("/", choperasResource.getChoperas);
-
-const hearthBeatResource = new HearthBeatResource();
 const hearthBeatRouter = express.Router();
 hearthBeatRouter.get("/", hearthBeatResource.getHealth);
-
-server.use("/api/choperas", choperasRouter);
 server.use("/system/health", hearthBeatRouter);
 
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
 
 server.listen(PORT, () => {
     console.log(`Service running on port ${PORT}`);

@@ -1,4 +1,4 @@
-const { getHealth } = require('../choperasClient');
+const { getHealth } = require('../serviceClient');
 const { When } = require('@cucumber/cucumber')
 const CucumberContext = require("../cucumberContext")
 
