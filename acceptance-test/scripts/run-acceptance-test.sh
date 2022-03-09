@@ -7,7 +7,7 @@ source "$CURRENT_DIR/start-acceptance-test-environment.sh"
 source "$CURRENT_DIR/check-service-is-running.sh"
 run_health_check "choperas-rest" "http://localhost:8888/system/health"
 
-pushd  "$CURRENT_DIR/../acceptance-test"
+pushd  "$CURRENT_DIR/../"
     npm install --quiet
     npm run test
 
