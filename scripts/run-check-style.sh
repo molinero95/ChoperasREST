@@ -2,7 +2,7 @@
 
 CURRENT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-pushd  "$CURRENT_DIR/../choperas"
+pushd  "$CURRENT_DIR/../choperas-rest"
     echo "Running check style..."
     npm install --quiet
     npm run lint

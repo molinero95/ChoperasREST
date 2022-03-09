@@ -2,7 +2,7 @@
 
 CURRENT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-pushd  "$CURRENT_DIR/../choperas"
+pushd  "$CURRENT_DIR/../choperas-rest"
     echo "Running unit tests..."
     npm install --quiet
     npm run test
