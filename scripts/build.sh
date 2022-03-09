@@ -2,6 +2,7 @@
 
 CURRENT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
+source "$CURRENT_DIR/run-check-style.sh"
 source "$CURRENT_DIR/run-unit-test.sh"
 
 pushd "$CURRENT_DIR/../choperas"
