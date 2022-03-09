@@ -4,13 +4,17 @@ export default class FuelStationsResource {
         this.fuelStationsRepository = fuelStationsRepository;
     }
 
-    getFuelStations(_request, response) {
-        const fuelStations = this.fuelStationsRepository.getFuelStations();
-        if (fuelStations.length === 0) {
-            response.status(204);
-        }
-        response.status(200);
-        response.json({ "data": fuelStations });
+    async getFuelStations(_request, response) {
+        return this.fuelStationsRepository.getFuelStations().then(fuelStations => {
+            if (fuelStations.length === 0) {
+                response.status(204);
+            }
+            else{
+                response.status(200);
+            }
+            response.json({ "data": fuelStations });
+        });
+        
     }
 
-}
+}   

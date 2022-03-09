@@ -1,21 +1,19 @@
 #!/bin/bash
 
-function run_health_check() {
-    local SERVICE_NAME=$1
-    local URI=$2
+function is_container_healty() {
+    local CONTAINER_NAME=$1
 
     echo ""
-    echo "Checking $SERVICE_NAME is running"
+    echo "Checking if $CONTAINER_NAME is healty"
 
     counter_retries=0
-    max_retries=100
+    max_retries=25
     status='ko'
 
     while [ $counter_retries -lt $max_retries ];do
 
         echo "Retry $(($counter_retries + 1))/$max_retries"
-        curl -s "$URI" | grep '{"status":"UP"}' > /dev/null 2>&1
-        if [ "$?" = "0" ];then
+        if [ "$(docker ps -f health=healthy -f name=$CONTAINER_NAME --format '{{.Image}}')" ];then
             status='ok'
             break
         fi

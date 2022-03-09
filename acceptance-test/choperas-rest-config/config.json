@@ -1,8 +1,9 @@
 {
     "db": {
+        "database": "Choperas",
         "user": "root",
         "password": "testpassword",
         "maxConnections": 2,
-        "host": "localhost"
+        "host": "mysql-database"
     }
 }

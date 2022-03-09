@@ -6,53 +6,48 @@ import FuelStationsResource from "../../src/rest/fuelStationsResource.js";
 
 describe("/api/fuel-stations", () => {
 
-    let status, json, getJson, getStatus, request, response, fuelStationsRepository, fuelStationsResource;
+    let jsonValue, statusValue, request, response, fuelStationsRepository, fuelStationsResource;
+    
     beforeEach(() => {
-        status = sinon.stub();
-        json = sinon.spy();
-        getJson = () => json.args[0][0];
-        getStatus = () => status.args[0][0];
-        response = { json, status, getStatus, getJson };
         request = {};
-        status.returns(response);
+        response = { json: (obj) => jsonValue=obj, status: (value) => statusValue=value };
         fuelStationsRepository = new FuelStationsRepository();
         fuelStationsResource = new FuelStationsResource(fuelStationsRepository);
     });
 
     describe("get fuel stations without data present", () => {
 
-        it("It should return http status 204 NO_CONTENT", () => {
-            sinon.stub(fuelStationsRepository, "getFuelStations").returns([]);
-            fuelStationsResource.getFuelStations(request, response);
-
-            expect(response.getStatus()).to.be.equal(204);
+        it("It should return http status 204 NO_CONTENT", async () => {
+            sinon.stub(fuelStationsRepository, "getFuelStations").returns(Promise.resolve([]));
+            await fuelStationsResource.getFuelStations(request, response);
+            expect(statusValue).is.equal(204);
         });
 
-        it("It should return a body with empty data", () => {
-            sinon.stub(fuelStationsRepository, "getFuelStations").returns([]);
-            fuelStationsResource.getFuelStations(request, response);
+        it("It should return a body with empty data", async () => {
+            sinon.stub(fuelStationsRepository, "getFuelStations").returns(Promise.resolve([]));
+            await fuelStationsResource.getFuelStations(request, response);
 
-            expect(response.getJson()).to.be.deep.equal({ "data": [] });
+            expect(jsonValue).to.be.deep.equal({ "data": [] });
         });
 
     });
 
     describe("get fuel stations with data present", () => {
 
-        it("It should return http status 200 OK", () => {
-            const fuelStation = sinon.stub();
-            sinon.stub(fuelStationsRepository, "getFuelStations").returns([fuelStation]);
-            fuelStationsResource.getFuelStations(request, response);
+        it("It should return http status 200 OK", async () => {
+            const fuelStation = {"name": "test"};
+            sinon.stub(fuelStationsRepository, "getFuelStations").returns(Promise.resolve([fuelStation]));
+            await fuelStationsResource.getFuelStations(request, response);
 
-            expect(response.getStatus()).to.be.equal(200);
+            expect(statusValue).to.be.equal(200);
         });
 
-        it("It should return the expected value", () => {
-            const fuelStation = sinon.stub();
-            sinon.stub(fuelStationsRepository, "getFuelStations").returns([fuelStation]);
-            fuelStationsResource.getFuelStations(request, response);
+        it("It should return the expected value", async () => {
+            const fuelStation = {"name": "test"};
+            sinon.stub(fuelStationsRepository, "getFuelStations").returns(Promise.resolve([fuelStation]));
+            await fuelStationsResource.getFuelStations(request, response);
 
-            expect(response.getJson()).to.be.deep.equal({ "data": [fuelStation] });
+            expect(jsonValue).to.be.deep.equal({ "data": [fuelStation] });
         });
     });
 });

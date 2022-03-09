@@ -12,10 +12,13 @@ loadConfigurationFromFile();
 const configuration = Configuration.getConfiguration();
 const dataSource = new Datasource(
     configuration.db.host,
+    configuration.db.database,
     configuration.db.user,
     configuration.db.password,
     configuration.db.maxConnections
 );
+
+dataSource.initializePool();
 const fuelStationsRepository = new FuelStationsRepository(dataSource);
 const fuelStationResource = new FuelStationsResource(fuelStationsRepository);
 const hearthBeatResource = new HearthBeatResource();
@@ -24,11 +27,11 @@ const server = express();
 const PORT = 8888;
 
 const fuelStationsRouter = express.Router();
-fuelStationsRouter.get("/", fuelStationResource.getFuelStations);
+fuelStationsRouter.get("/", (request, response) => fuelStationResource.getFuelStations(request, response));
 server.use("/api/fuel-stations", fuelStationsRouter);
 
 const hearthBeatRouter = express.Router();
-hearthBeatRouter.get("/", hearthBeatResource.getHealth);
+hearthBeatRouter.get("/", (request, response) => hearthBeatResource.getHealth(request, response));
 server.use("/system/health", hearthBeatRouter);
 
 server.use(bodyParser.json());
